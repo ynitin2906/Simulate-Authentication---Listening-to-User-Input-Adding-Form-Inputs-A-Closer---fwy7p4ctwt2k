@@ -13,7 +13,7 @@ const App = () => {
     const password = event.target.signupPassword.value;
     const confirmPassword = event.target.signupConfirmPassword.value;
 
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       return;
     }
     const newUser = new User(email, password, name);
@@ -25,11 +25,15 @@ const App = () => {
     const email = event.target.loginEmail.value;
     const password = event.target.loginPassword.value;
     const user = allUsers.find((user) => user.email === email);
-    if (user.password === password) {
+
+    if (!user) {
+      alert("Email is incorrect");
+    } else if (user.password !== password) {
+      alert("Password is incorrect");
+      // event.target.reset();
+    } else {
       setLoggedInUser(user);
       event.target.reset();
-    } else {
-      return;
     }
   };
   const handleLogout = () => {
